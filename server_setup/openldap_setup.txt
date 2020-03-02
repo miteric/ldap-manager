@@ -1,0 +1,154 @@
+Setup OpenLDAP Server:
+
+1. Install openldap
+yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-servers-sql openldap-devel
+
+2. Enable and Start slapd service
+systemctl enable slapd.service
+systemctl start slapd.service
+
+netstat -tulnp | grep -i 389
+
+3. Set ldap admin password, set into config ldif.
+slappasswd -h {SSHA}
+New password:
+Re-enter new password:
+{SSHA}sSNk+mbGYOA8DhVaCSzHxv65/13AgA5W
+
+4. Check Default Configurations
+All OpenLDAP servers configuration files are managed under directory:
+cd /etc/openldap/slapd.d/
+
+List your LDAP configuration:
+ls /etc/openldap/slapd.d/cn=config/
+cn=schema  cn=schema.ldif  olcDatabase={0}config.ldif  olcDatabase={-1}frontend.ldif  olcDatabase={1}monitor.ldif  olcDatabase={2}hdb.ldif
+
+
+5. vi monitor.ldif: Allow only ldapadm could access monitor db.
+
+ldapmodify -Y EXTERNAL  -H ldapi:/// -f monitor.ldif
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+modifying entry "olcDatabase={1}monitor,cn=config"
+
+
+6. vi db.ldif with root DN, and ldap admin password
+
+ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+modifying entry "olcDatabase={2}hdb,cn=config"
+
+modifying entry "olcDatabase={2}hdb,cn=config"
+
+modifying entry "olcDatabase={2}hdb,cn=config"
+
+7. Setup DB_CONFIG
+cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+chown ldap:ldap /var/lib/ldap/*
+
+8. Add Schemes
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+ASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+adding new entry "cn=cosine,cn=schema,cn=config"
+
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+adding new entry "cn=nis,cn=schema,cn=config"
+
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+adding new entry "cn=inetorgperson,cn=schema,cn=config"
+
+9. Setup MemberOf
+vi backend_memberof.ldif
+ldapadd -Q -Y EXTERNAL -H ldapi:/// -f backend_memberof.ldif
+adding new entry "cn=module,cn=config"
+
+adding new entry "olcOverlay={0}memberof,olcDatabase={2}hdb,cn=config"
+
+ll to find the new created module number(cn=module{0}.ldif)
+ll /etc/openldap/slapd.d/cn=config/
+-rw------- 1 ldap ldap  534 Mar  1 15:15 cn=module{0}.ldif
+
+vi refint1.ldif
+ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f refint1.ldif
+modifying entry "cn=module{0},cn=config"
+
+vi refint2.ldif
+ldapadd -Q -Y EXTERNAL -H ldapi:/// -f refint2.ldif
+adding new entry "olcOverlay={1}refint,olcDatabase={2}hdb,cn=config"
+
+10. vi base.ldif for root domain.
+ldapadd -x -W -D "cn=ldapadm,dc=slashlet,dc=com" -f base.ldif
+Enter LDAP Password:
+adding new entry "dc=slashlet,dc=com"
+
+adding new entry "cn=ldapadm ,dc=slashlet,dc=com"
+
+adding new entry "ou=People,dc=slashlet,dc=com"
+
+adding new entry "ou=Group,dc=slashlet,dc=com"
+
+11. Test configuration
+slaptest -u
+config file testing succeeded
+
+ldapsearch -x -LLL -ZZ -b dc=slashlet,dc=com
+
+12. Add user
+vi add_user_miteric.ldif
+ldapadd -x -W -D "cn=ldapadm,dc=slashlet,dc=com" -f add_user_miteric.ldif
+Enter LDAP Password:
+adding new entry "uid=miteric,ou=people,dc=slashlet,dc=com"
+
+13. Add group with member miteric
+vi add_group_master.ldif
+ldapadd -x -W -D "cn=ldapadm,dc=slashlet,dc=com" -f add_group_master.ldif
+Enter LDAP Password:
+adding new entry "cn=master,ou=group,dc=slashlet,dc=com"
+
+14. ldapsearch memberOf to see if applied on user miteric
+ldapsearch -x -b dc=slashlet,dc=com -D "cn=ldapadm,dc=slashlet,dc=com" -W memberOf
+Enter LDAP Password:
+# extended LDIF
+#
+# LDAPv3
+# base <dc=slashlet,dc=com> with scope subtree
+# filter: (objectclass=*)
+# requesting: memberOf
+#
+
+# slashlet.com
+dn: dc=slashlet,dc=com
+
+# ldapadm, slashlet.com
+dn: cn=ldapadm,dc=slashlet,dc=com
+
+# People, slashlet.com
+dn: ou=People,dc=slashlet,dc=com
+
+# Group, slashlet.com
+dn: ou=Group,dc=slashlet,dc=com
+
+# miteric, People, slashlet.com
+dn: uid=miteric,ou=People,dc=slashlet,dc=com
+memberOf: cn=master,ou=group,dc=slashlet,dc=com
+
+# master, Group, slashlet.com
+dn: cn=master,ou=Group,dc=slashlet,dc=com
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 7
+ # numEntries: 6
