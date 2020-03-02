@@ -1,0 +1,15 @@
+dn: uid=miteric,ou=people,dc=slashlet,dc=com
+cn: Eric Huang
+givenName: Eric
+sn: Huang
+uid: miteric
+uidNumber: 5000
+gidNumber: 1000
+userPassword: {SSHA}sSNk+mbGYOA8DhVaCSzHxv65/13AgA5W
+mail: miteric@hotmail.com
+homeDirectory: /home/miteric
+loginShell: /bin/bash
+objectClass: top
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: inetOrgPerson

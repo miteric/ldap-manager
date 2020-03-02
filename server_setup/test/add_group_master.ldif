@@ -1,0 +1,4 @@
+dn: cn=master,ou=group,dc=slashlet,dc=com
+objectClass: groupOfNames
+cn: master
+member: uid=miteric,ou=people,dc=slashlet,dc=com
