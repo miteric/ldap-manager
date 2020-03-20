@@ -1,0 +1,29 @@
+Setup ApacheDS Server:
+
+1. Upload and install ApacheDS RPM: apacheds-2.0.0.AM26-x86_64.rpm
+rpm -ivh apacheds-2.0.0.AM26-x86_64.rpm
+
+2. Enable service
+cd /etc/init.d/
+mv apacheds-2.0.0.AM26-default apacheds
+
+systemctl enable apacheds
+systemctl start apacheds
+systemctl status apacheds
+
+3. Enable Firewall
+firewall-cmd --permanent --add-port=10389/tcp
+firewall-cmd --permanent --add-port=10636/tcp
+firewall-cmd --reload
+firewall-cmd --list-all
+
+4. copy SSL key for apacheds
+cd /var/lib/apacheds-2.0.0.AM26/default/
+cp /opt/tomcat/auth.slashlet.com.jks .
+chown apacheds:apacheds auth.slashlet.com.jks
+
+5. Apache Directory Studio connect to server and config:
+Connections->ApacheDS->Open configuration->Tab "LDAP/LDAPS Servers"
+setup the SSL/Keystore path and password
+
+restart server
