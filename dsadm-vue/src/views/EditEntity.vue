@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="['page-title', 'text-primary']">
-      <span>{{ title }}</span>
+      <span>{{ titletxt }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
         <WBtnCircle
@@ -30,16 +30,21 @@ export default {
       type: String,
       required: true,
       validator: function(value) {
-        console.log(value);
         return value || 0 < value.length;
       }
     },
     title: {
-      type: String,
-      default: "Edit"
+      type: String
     }
   },
   computed: {
+    titletxt() {
+      if (this.title && 0 < this.title.length) {
+        console.log(this.title);
+        return this.title;
+      }
+      return this.$lang.edit + ": " + this.pid;
+    },
     datalist() {
       return [];
       // return store.destinations.find(

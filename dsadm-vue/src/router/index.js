@@ -27,6 +27,7 @@ const routes = [
   {
     path: "/new",
     name: "NewEntity",
+    props: true,
     component: () =>
       import(/* webpackChunkName: "NewEntity" */ "../views/NewEntity.vue")
   },

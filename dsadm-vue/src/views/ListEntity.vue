@@ -4,7 +4,7 @@
       <span>{{ title }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnCircle
-          linkto="/new"
+          :linkto="{ name: 'NewEntity' }"
           faicon="fa-plus"
           btnclass="btn-primary"
           v-if="newable"
@@ -27,7 +27,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "List"
+      default: ""
     },
     newable: {
       type: Boolean,

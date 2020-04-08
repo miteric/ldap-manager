@@ -1,13 +1,13 @@
 <template>
   <div>
     <div :class="['page-title', 'text-primary']">
-      <span>{{ title }}</span>
+      <span>{{ titletxt }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
         <WBtnCircle
           :onaction="onSubmit"
           faicon="fa-save"
-          label=""
+          :label="$lang.save"
           btnclass="btn-primary"
         />
       </div>
@@ -21,13 +21,21 @@ import WBtnCircle from "@/components/WBtnCircle";
 export default {
   props: {
     title: {
-      type: String,
-      default: "New"
+      type: String
     }
   },
   components: {
     WBtnBack,
     WBtnCircle
+  },
+  computed: {
+    titletxt() {
+      if (this.title && 0 < this.title.length) {
+        console.log(this.title);
+        return this.title;
+      }
+      return this.$lang.new;
+    }
   },
   methods: {
     onSubmit() {

@@ -1,11 +1,11 @@
 <template>
   <div>
     <div :class="['page-title', 'text-primary']">
-      <span>{{ title + pid }}</span>
+      <span>{{ titletxt }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
         <WBtnCircle
-          :linkto="{ name: 'EditEntity', params: { pid: pid } }"
+          :linkto="{ name: 'EditEntity', params: { pid: pid, title: '' } }"
           faicon="fa-pencil"
           btnclass="btn-primary"
           v-if="editable"
@@ -31,13 +31,11 @@ export default {
       type: String,
       required: true,
       validator: function(value) {
-        console.log(value);
         return value || 0 < value.length;
       }
     },
     title: {
-      type: String,
-      default: "View"
+      type: String
     },
     editable: {
       type: Boolean,
@@ -51,6 +49,15 @@ export default {
   components: {
     WBtnBack,
     WBtnCircle
+  },
+  computed: {
+    titletxt() {
+      if (this.title && 0 < this.title.length) {
+        console.log(this.title);
+        return this.title;
+      }
+      return this.$lang.view + ": " + this.pid;
+    }
   },
   methods: {
     onDelete() {
