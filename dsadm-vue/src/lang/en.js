@@ -85,8 +85,7 @@ module.exports = {
   draft: "Draft",
   payment_terms: "Payment Terms",
   name: "Name",
-  copyright:
-    "All Rights Reserved\u0026copy;, powered by \u003ca href\u003d\u0027mailto:miteric@gmail.com\u0027\u003emiteric.com\u003c/a\u003e",
+  copyright: "All Rights Reserved 2020",
   search: "Search",
   email: "Email",
   supplier: "Supplier",

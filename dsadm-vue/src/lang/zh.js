@@ -85,8 +85,7 @@ module.exports = {
   draft: "草稿",
   payment_terms: "付款方式",
   name: "名稱",
-  copyright:
-    "All Rights Reserved\u0026copy;, powered by \u003ca href\u003d\u0027mailto:miteric@gmail.com\u0027\u003emiteric.com\u003c/a\u003e",
+  copyright: "版權所有 2020",
   search: "搜尋",
   email: "Email",
   supplier: "供應商",

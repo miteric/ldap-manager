@@ -12,6 +12,9 @@ Vue.use(Lang, {
   locales: locales
 });
 
+import AppAPI from "./mixins/api";
+Vue.mixin(AppAPI);
+
 Vue.config.productionTip = false;
 
 new Vue({

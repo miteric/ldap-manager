@@ -4,14 +4,17 @@
     <transition name="fade" mode="out-in">
       <router-view :key="$route.path" />
     </transition>
+    <WFooter company="" />
   </div>
 </template>
 <script>
 import MyNavibar from "@/components/MyNavibar";
+import WFooter from "@/components/WFooter";
 
 export default {
   components: {
-    MyNavibar
+    MyNavibar,
+    WFooter
   }
 };
 </script>
@@ -34,6 +37,8 @@ $gray-lighter: lighten(#000, 80%);
   color: #2c3e50;
   min-height: 600px;
 }
+
+// transition effects
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
