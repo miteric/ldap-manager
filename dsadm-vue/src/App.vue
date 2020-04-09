@@ -5,14 +5,23 @@
       <router-view :key="$route.path" />
     </transition>
     <WFooter company="" />
+    <WMsgpan />
   </div>
 </template>
 <script>
 import MyNavibar from "@/components/MyNavibar";
 import WFooter from "@/components/WFooter";
+import WMsgpan from "@/components/WMsgpan";
 
 export default {
+  created: function() {
+    // eslint-disable-next-line no-undef
+    this.$validator.setLocale(MEApp.locale);
+    // eslint-disable-next-line no-undef
+    this.$setLang(MEApp.locale);
+  },
   components: {
+    WMsgpan,
     MyNavibar,
     WFooter
   }

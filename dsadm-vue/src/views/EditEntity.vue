@@ -17,6 +17,7 @@
   </div>
 </template>
 <script>
+import { eventBus } from "@/mixins/api";
 import WBtnBack from "@/components/WBtnBack";
 import WBtnCircle from "@/components/WBtnCircle";
 
@@ -55,8 +56,13 @@ export default {
   methods: {
     onSubmit() {
       console.log("I'm submiting!");
-      return this.$router.go(-1);
+      eventBus.$emit("showAppUpdating");
+      // return this.$router.go(-1);
       // this.$router.push({ name: "ViewEntity", params: { pid: this.pid } });
+      let vm = this;
+      setTimeout(function() {
+        eventBus.$emit("showAppSuccess", vm.$lang.update_success);
+      }, 2500);
     }
   }
 };
