@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ListEntity from "../views/ListEntity.vue";
-import EditEntity from "../views/EditEntity.vue";
 
 Vue.use(VueRouter);
 
@@ -9,6 +8,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
+    props: true,
     component: ListEntity
   },
   {
@@ -16,13 +16,36 @@ const routes = [
     name: "ViewEntity",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "ViewEntity" */ "../views/ViewEntity.vue")
+      import(/* webpackChunkName: "ViewEntity" */ "../views/ViewEntity.vue"),
+    beforeEnter: (to, from, next) => {
+      // eslint-disable-next-line no-undef
+      const exists = MEApp.datalist.find(
+        entity => entity.pid === to.params.pid
+      );
+      if (exists) {
+        next();
+      } else {
+        next({ name: "NotFound" });
+      }
+    }
   },
   {
     path: "/edit/:pid",
     name: "EditEntity",
     props: true,
-    component: EditEntity
+    component: () =>
+      import(/* webpackChunkName: "EditEntity" */ "../views/EditEntity.vue"),
+    beforeEnter: (to, from, next) => {
+      // eslint-disable-next-line no-undef
+      const exists = MEApp.datalist.find(
+        entity => entity.pid === to.params.pid
+      );
+      if (exists) {
+        next();
+      } else {
+        next({ name: "NotFound" });
+      }
+    }
   },
   {
     path: "/new",

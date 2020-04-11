@@ -22,9 +22,17 @@
     <!-- built files will be auto injected -->
     <script>
       window.MEApp = window.MEApp || {};
+      window.MEApp.title = "Hello112";
+      window.MEApp.newable = true;
+      window.MEApp.editable = true;
+      window.MEApp.delable = true;
       window.MEApp.menuitems = [
         { name: "Home", url: "/" },
         { name: "New User", url: "/new" }
+      ];
+      window.MEApp.datalist = [
+        { pid: "SSS", name: "name1", inquiry: "desc1" },
+        { pid: "SSB", name: "name2", inquiry: "desc2" }
       ];
     </script>
   </body>

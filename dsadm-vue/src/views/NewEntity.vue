@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="['page-title', 'text-primary']">
+    <div :class="['page-title', 'boxshadow', 'text-primary']">
       <span>{{ titletxt }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
@@ -29,6 +29,14 @@ export default {
     WBtnBack,
     WBtnCircle
   },
+  data() {
+    return {
+      entity: null
+    };
+  },
+  created() {
+    this.entity = {};
+  },
   computed: {
     titletxt() {
       if (this.title && 0 < this.title.length) {
@@ -52,24 +60,3 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss">
-$primary: #5593e4;
-$info: #75edf8;
-$warning: #fffc99;
-$danger: #fe98b9;
-$secondary: #6b6c7e;
-$success: #62a426;
-$gray: lighten(#000, 35%);
-$gray-lighter: lighten(#000, 80%);
-
-.page-title {
-  text-align: left;
-  min-height: 50px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  padding: 10px;
-  font-size: 1.5em;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-}
-</style>

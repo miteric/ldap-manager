@@ -4,7 +4,25 @@ export const eventBus = new Vue();
 
 export default {
   data: function() {
-    return { curitem: "" };
+    return {
+      curitem: null,
+      // global datalist
+      mydatalist: MEApp.datalist
+    };
+  },
+  computed: {
+    mytitle() {
+      return MEApp.title;
+    },
+    newable() {
+      return MEApp.newable;
+    },
+    editable() {
+      return MEApp.editable;
+    },
+    delable() {
+      return MEApp.delable;
+    }
   },
   created: function() {},
   methods: {

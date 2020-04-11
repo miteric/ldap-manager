@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 <template>
   <div>
     <div :class="['page-title', 'text-primary']">
-      <span>{{ title }}</span>
+      <span v-if="mytitle">{{ mytitle }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnCircle
           :linkto="{ name: 'NewEntity' }"
@@ -9,62 +10,26 @@
           btnclass="btn-primary"
           v-if="newable"
         />
-        <WBtnCircle
-          linkto="/view/S123"
-          faicon="fa-eye"
-          btnclass="btn-primary"
-          v-if="editable"
-        />
       </div>
     </div>
-    <h1>This is list page of</h1>
+    <WTable :datalist="mydatalist" :thfields="config.fields" />
   </div>
 </template>
 <script>
 import WBtnCircle from "@/components/WBtnCircle";
+import WTable from "@/components/WTable";
+import conf from "@/conf/user_conf.js";
 
 export default {
-  props: {
-    title: {
-      type: String,
-      default: ""
-    },
-    newable: {
-      type: Boolean,
-      default: true
-    },
-    editable: {
-      type: Boolean,
-      default: true
-    },
-    delable: {
-      type: Boolean,
-      default: true
-    }
-  },
   components: {
-    WBtnCircle
+    WBtnCircle,
+    WTable
+  },
+  data() {
+    return {
+      // don't try to move it to computed, not working
+      config: conf
+    };
   }
 };
 </script>
-<style scoped lang="scss">
-$primary: #5593e4;
-$info: #75edf8;
-$warning: #fffc99;
-$danger: #fe98b9;
-$secondary: #6b6c7e;
-$success: #62a426;
-$gray: lighten(#000, 35%);
-$gray-lighter: lighten(#000, 80%);
-
-.page-title {
-  text-align: left;
-  min-height: 50px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  padding: 10px;
-  font-size: 1.5em;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-}
-</style>

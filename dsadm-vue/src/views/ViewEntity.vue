@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="['page-title', 'text-primary']">
+    <div :class="['page-title', 'boxshadow', 'text-primary']">
       <span>{{ titletxt }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
@@ -18,7 +18,7 @@
         />
       </div>
     </div>
-    <h1>This is view page</h1>
+    <h1>This is {{ entity.name }}</h1>
   </div>
 </template>
 <script>
@@ -36,14 +36,6 @@ export default {
     },
     title: {
       type: String
-    },
-    editable: {
-      type: Boolean,
-      default: true
-    },
-    delable: {
-      type: Boolean,
-      default: true
     }
   },
   components: {
@@ -51,32 +43,32 @@ export default {
     WBtnCircle
   },
   computed: {
+    entity() {
+      return this.mydatalist.find(entity => entity.pid === this.pid);
+    },
     titletxt() {
       if (this.title && 0 < this.title.length) {
         console.log(this.title);
         return this.title;
       }
-      return this.$lang.view + ": " + this.pid;
+      return this.$lang.view + ": " + this.entity.name;
     }
   },
   methods: {
     onDelete() {
-      console.log("I'm deleting!");
-      return this.$router.go(-1);
-      // this.$router.push({ name: "ViewEntity", params: { pid: this.pid } });
+      var r = confirm(this.$lang.confirm_delete);
+      if (r == true) {
+        console.log("I'm deleting!");
+        for (let index = 0; index < this.mydatalist.length; index++) {
+          const element = this.mydatalist[index];
+          if (element.pid == this.pid) {
+            this.mydatalist.splice(index, 1);
+            break;
+          }
+        }
+        return this.$router.go(-1);
+      }
     }
   }
 };
 </script>
-<style scoped lang="scss">
-.page-title {
-  text-align: left;
-  min-height: 50px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  padding: 10px;
-  font-size: 1.5em;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-}
-</style>

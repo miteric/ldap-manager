@@ -47,6 +47,20 @@ $gray-lighter: lighten(#000, 80%);
   min-height: 600px;
 }
 
+.page-title {
+  text-align: left;
+  min-height: 50px;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 1.5em;
+  &.boxshadow {
+    -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
+    margin-bottom: 15px;
+    padding: 8px 10px;
+  }
+}
+
 // transition effects
 .fade-enter-active,
 .fade-leave-active {

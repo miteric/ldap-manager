@@ -5,9 +5,12 @@
     @click="onaction"
     v-if="onaction"
   >
-    <i :class="['fa', faicon]" aria-hidden="true" v-if="faicon">
-      <span v-if="label"> &nbsp;{{ label }}</span>
-    </i>
+    <span class="pr-1 pl-1" v-if="label">
+      <i :class="['fa', faicon]" aria-hidden="true" v-if="faicon">
+        &nbsp;{{ label }}
+      </i></span
+    >
+    <i :class="['fa', faicon]" aria-hidden="true" v-else> </i>
   </button>
   <router-link :to="linkto" :class="['btn btn-circle mr-1', btnclass]" v-else>
     <i :class="['fa', faicon]" aria-hidden="true" v-if="faicon">
