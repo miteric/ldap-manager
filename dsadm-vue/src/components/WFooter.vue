@@ -1,5 +1,5 @@
 <template>
-  <div class="panel text-center">
+  <div :class="['panel', 'text-center']" id="footer">
     <div class="panel-heading">
       <small
         >{{ $lang.copyright }}&copy;{{ company }}, Powered by
@@ -16,11 +16,24 @@ export default {
     },
     url: {
       type: String
+    },
+    bgclass: {
+      type: String,
+      default: ""
     }
   }
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
+$primary: #5593e4;
+#footer {
+  position: fixed;
+  padding: 10px;
+  left: 0%;
+  bottom: 0%;
+  width: 100%;
+  background-color: lighten($primary, 20%);
+}
 a {
   text-decoration: none;
 }
