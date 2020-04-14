@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 <template>
-  <div>
-    <div :class="['page-title', 'text-primary']">
+  <div class="app-container">
+    <div class="page-title boxshadow">
       <span v-if="mytitle">{{ mytitle }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnCircle
@@ -12,7 +12,11 @@
         />
       </div>
     </div>
-    <WTable :datalist="mydatalist" :thfields="config.fields" />
+    <WTable
+      :datalist="mydatalist"
+      :thfields="tablefields()"
+      class="pl-3 pr-3"
+    />
   </div>
 </template>
 <script>
@@ -25,11 +29,12 @@ export default {
     WBtnCircle,
     WTable
   },
-  data() {
-    return {
-      // don't try to move it to computed, not working
-      config: conf
-    };
+  methods: {
+    tablefields() {
+      return conf.fields.filter(function(item) {
+        return item.tsort > 0;
+      });
+    }
   }
 };
 </script>

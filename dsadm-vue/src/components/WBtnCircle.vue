@@ -57,7 +57,7 @@ $gray-lighter: lighten(#000, 80%);
 
 .btn-circle {
   min-width: 30px;
-  background-color: transparent;
+  background-color: white;
   transition: all 0.5s;
   height: 30px;
   padding: 6px 4px;

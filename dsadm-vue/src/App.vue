@@ -36,29 +36,42 @@ $danger: #fe98b9;
 $secondary: #6b6c7e;
 $success: #62a426;
 $gray: lighten(#000, 35%);
-$gray-lighter: lighten(#000, 80%);
+$gray-lighter: lighten(#000, 95%);
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  min-height: 600px;
+  color: $gray;
+  // min-height: 600px;
 }
-
+.app-container {
+  margin-top: 0.5em;
+  width: 100%;
+  border-radius: 6px;
+  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
+}
 .page-title {
   text-align: left;
   min-height: 50px;
-  border-radius: 6px;
+  border-radius: 6px 6px 0px 0px;
   padding: 5px 10px;
-  font-size: 1.5em;
-  &.boxshadow {
-    -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.375);
-    margin-bottom: 15px;
-    padding: 8px 10px;
-  }
+  font-size: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+.boxshadow {
+  background: linear-gradient(
+    to bottom,
+    lighten($primary, 37%) 0%,
+    #ffffff 20%,
+    #ffffff 82%,
+    lighten($primary, 36%) 100%
+  );
+  -webkit-box-shadow: 0px 1px 1px lighten($secondary, 45%);
+  box-shadow: 0px 1px 1px lighten($secondary, 45%);
+  padding: 8px 10px;
 }
 
 // transition effects

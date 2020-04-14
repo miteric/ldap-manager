@@ -1,7 +1,7 @@
 <template>
   <div class="table-responsive">
     <table class="table table-striped table-hover table-borderless">
-      <thead :class="thbgclass">
+      <thead :class="thclass">
         <tr>
           <th v-for="(hfield, i) in thfields" :key="i" scope="col">
             {{ $lang[hfield.name] }}
@@ -31,9 +31,9 @@ export default {
       required: true,
       default: () => []
     },
-    thbgclass: {
+    thclass: {
       type: String,
-      default: "thbg"
+      default: "th-simple"
     },
     thfields: {
       required: true,
@@ -44,12 +44,36 @@ export default {
 </script>
 <style scoped lang="scss">
 $primary: #5593e4;
-.thbg {
+$warning: #fffc99;
+$secondary: #6b6c7e;
+.table {
+  color: $secondary;
+  th {
+    padding-bottom: 0.3em;
+  }
+  td {
+    padding-bottom: 0.5em;
+  }
+}
+.table-striped tbody tr {
+  background-color: white;
+  &:nth-of-type(even) {
+    background-color: lighten($primary, 36%);
+  }
+  &:hover {
+    background-color: lighten($primary, 32%);
+  }
+}
+
+.th-simple {
+  border-bottom: 1px solid lighten($secondary, 40%);
+}
+.thbg-inv {
   color: white;
   background-color: lighten($primary, 20%);
 }
-
 a {
   text-decoration: none;
+  color: $secondary;
 }
 </style>

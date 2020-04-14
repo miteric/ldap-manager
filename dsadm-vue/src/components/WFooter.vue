@@ -3,7 +3,9 @@
     <div class="panel-heading">
       <small
         >{{ $lang.copyright }}&copy;{{ company }}, Powered by
-        <a href="http://www.wellfunc.com" target="_blank">WELLFUNC</a></small
+        <a href="http://www.wellfunc.com" target="_blank"
+          >wellfunc.com</a
+        ></small
       >
     </div>
   </div>
@@ -33,8 +35,10 @@ $primary: #5593e4;
   bottom: 0%;
   width: 100%;
   background-color: lighten($primary, 20%);
+  color: white;
 }
 a {
   text-decoration: none;
+  color: white;
 }
 </style>
