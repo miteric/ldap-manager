@@ -1,3 +1,4 @@
+// Simple View Page
 <template>
   <div class="app-container">
     <div class="page-title boxshadow">
