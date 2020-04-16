@@ -1,4 +1,5 @@
 module.exports = {
+  action: "Action",
   del_ff: "Delete Item Fulfill",
   description: "Description",
   subtotal: "Subtotal",

@@ -1,4 +1,5 @@
-/* General String Display */
+/* General String Display, setting lblclass & valclass to "" will get bootstrap
+standard input-group */
 <template>
   <div :class="['input-group', loclass]">
     <div class="input-group-prepend">
@@ -27,9 +28,9 @@ export default {
       type: String,
       required: true
     },
-    multiline: {
-      type: Boolean,
-      default: false
+    type: {
+      type: String,
+      default: "txt"
     },
     loclass: {
       type: String,
@@ -46,10 +47,9 @@ export default {
   },
   computed: {
     valueclass() {
-      if (this.multiline) {
+      if (this.type == "txtarea") {
         return "white-space-pre " + this.valclass;
       }
-
       return this.valclass;
     }
   }

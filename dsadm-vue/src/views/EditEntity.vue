@@ -31,7 +31,7 @@ export default {
       type: String,
       required: true,
       validator: function(value) {
-        return value || 0 < value.length;
+        return value && 0 < value.length;
       }
     },
     title: {
@@ -58,7 +58,6 @@ export default {
   methods: {
     onSubmit() {
       console.log("I'm submiting!");
-      eventBus.$emit("showAppUpdating");
       // return this.$router.go(-1);
       // this.$router.push({ name: "ViewEntity", params: { pid: this.pid } });
       let vm = this;

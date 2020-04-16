@@ -1,22 +1,36 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ListEntity from "../views/ListEntity.vue";
+import ViewEntity from "../views/ViewEntity.vue";
+import ViewDetail from "../views/ViewDetail.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "route.home",
     props: true,
     component: ListEntity
   },
   {
     path: "/view/:pid",
-    name: "ViewEntity",
     props: true,
-    component: () =>
-      import(/* webpackChunkName: "ViewEntity" */ "../views/ViewEntity.vue"),
+    component: ViewEntity,
+    children: [
+      {
+        path: "",
+        name: "route.view",
+        props: true,
+        component: ViewDetail
+      },
+      {
+        path: ":sec",
+        name: "route.info",
+        props: true,
+        component: ViewDetail
+      }
+    ],
     beforeEnter: (to, from, next) => {
       // eslint-disable-next-line no-undef
       const exists = MEApp.datalist.find(
@@ -31,10 +45,11 @@ const routes = [
   },
   {
     path: "/edit/:pid",
-    name: "EditEntity",
+    name: "route.edit",
     props: true,
     component: () =>
       import(/* webpackChunkName: "EditEntity" */ "../views/EditEntity.vue"),
+
     beforeEnter: (to, from, next) => {
       // eslint-disable-next-line no-undef
       const exists = MEApp.datalist.find(
@@ -49,7 +64,7 @@ const routes = [
   },
   {
     path: "/new",
-    name: "NewEntity",
+    name: "route.new",
     props: true,
     component: () =>
       import(/* webpackChunkName: "NewEntity" */ "../views/NewEntity.vue")

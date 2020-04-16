@@ -6,7 +6,7 @@
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
         <WBtnCircle
-          :linkto="{ name: 'EditEntity', params: { pid: pid, title: '' } }"
+          :linkto="{ name: 'route.edit', params: { pid: pid, title: '' } }"
           faicon="fa-pencil"
           btnclass="btn-primary"
           v-if="editable"

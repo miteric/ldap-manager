@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="container">
     <MyNavibar />
-    <transition name="fade" mode="out-in">
-      <router-view :key="$route.path" />
-    </transition>
+    <!-- <transition name="fade" mode="out-in"> -->
+    <router-view :key="$route.path" />
+    <!-- </transition> -->
     <WFooter company="" />
     <WMsgpan />
   </div>
@@ -60,7 +60,6 @@ $gray-lighter: lighten(#000, 95%);
   font-size: 1.4em;
   margin-bottom: 0.5em;
 }
-
 .boxshadow {
   background: linear-gradient(
     to bottom,
@@ -73,27 +72,76 @@ $gray-lighter: lighten(#000, 95%);
   box-shadow: 0px 1px 1px lighten($secondary, 45%);
   padding: 8px 10px;
 }
+.content-display {
+  margin-right: 15px;
+  margin-left: 15px;
+  min-height: 300px;
+}
+.menu-item {
+  font-size: 1.1em;
+  font-weight: 400;
+  // style for router active link
+  .router-link-active {
+    border: 1px solid lighten($primary, 33%);
+    border-radius: 6px;
+    font-weight: 500;
+    color: $primary;
+    background: linear-gradient(
+      to bottom,
+      lighten($primary, 34%) 0%,
+      lighten($primary, 37%) 10%,
+      #ffffff 82%,
+      lighten($primary, 37%) 90%,
+      lighten($primary, 34%) 100%
+    );
+    @media (max-width: 767px) {
+      border-bottom: 0;
+    }
+  }
+  a {
+    display: block;
+    padding: 0.5em;
+    text-decoration: none;
+    color: $secondary;
+    &:hover {
+      background-color: lighten($primary, 35%);
+      border-radius: 6px;
+    }
+    @media (max-width: 767px) {
+      padding: 0.3em 0;
+    }
+  }
 
+}
+.menu {
+  border-right: 1px solid lighten($primary, 32%);
+  padding-right: 15px;
+  @media (max-width: 767px) {
+    border-bottom: 1px solid lighten($primary, 32%);
+    border-right: 0px;
+    margin-bottom: 15px;
+  }
+}
 // transition effects
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.25s;
 }
 .fade-enter,
 .fade-leave-to {
-  opacity: 0;
+  opacity: 0.05;
 }
 .slide-enter-active,
 .slide-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: opacity 0.5s, transform 0.3s;
 }
 .slide-enter,
 .slide-leave-to {
   opacity: 0;
-  transform: translateX(-30%);
+  transform: translateY(80%);
 }
 .moveUp-enter-active {
-  animation: fadeIn 1s ease-in;
+  animation: moveUp 0.5s ease-in;
 }
 @keyframes fadeIn {
   0% {
@@ -107,14 +155,22 @@ $gray-lighter: lighten(#000, 95%);
   }
 }
 .moveUp-leave-to {
-  animation: moveUp 0.3s ease-in;
+  animation: moveDn 0.3s ease-in;
 }
 @keyframes moveUp {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+@keyframes moveDn {
   0% {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-100%);
+    transform: translateY(100%);
   }
 }
 </style>

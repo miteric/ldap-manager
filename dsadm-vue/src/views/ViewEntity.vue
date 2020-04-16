@@ -5,7 +5,7 @@
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
         <WBtnCircle
-          :linkto="{ name: 'EditEntity', params: { pid: pid, title: '' } }"
+          :linkto="{ name: 'route.edit', params: { pid: pid, title: '' } }"
           faicon="fa-pencil"
           btnclass="btn-primary"
           v-if="editable"
@@ -18,21 +18,52 @@
         />
       </div>
     </div>
-    <div class="pl-3 pr-3 pb-5">
-      <WStringView
-        v-for="(field, i) in fieldsbygroup('')"
-        :key="i"
-        :labelkey="field.name"
-        :value="fieldvalue(field.name)"
-        loclass="mb-1"
-      />
+    <div class="content-display">
+      <div class="row">
+        <div class="col-sm-12 col-md-3" v-if="sections.length > 1">
+          <div class="row menu d-none d-md-block">
+            <div
+              class="col-12 menu-item pr-0"
+              v-for="section in sections"
+              :key="section.name"
+            >
+              <router-link
+                :to="{
+                  name: section.routename,
+                  params: { sec: section.name, type: section.type }
+                }"
+              >
+                {{ $lang[section.name] }}
+              </router-link>
+            </div>
+          </div>
+          <div class="row menu no-gutters d-md-none">
+            <div
+              class="col menu-item text-center"
+              v-for="section in sections"
+              :key="section.name"
+            >
+              <router-link
+                :to="{
+                  name: section.routename,
+                  params: { sec: section.name, type: section.type }
+                }"
+              >
+                {{ $lang[section.name] }}
+              </router-link>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <router-view :key="$route.path" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import WBtnBack from "@/components/WBtnBack";
 import WBtnCircle from "@/components/WBtnCircle";
-import WStringView from "@/components/WStringView";
 import conf from "@/conf/user_conf.js";
 
 export default {
@@ -41,7 +72,7 @@ export default {
       type: String,
       required: true,
       validator: function(value) {
-        return value || 0 < value.length;
+        return value && 0 < value.length;
       }
     },
     title: {
@@ -50,8 +81,7 @@ export default {
   },
   components: {
     WBtnBack,
-    WBtnCircle,
-    WStringView
+    WBtnCircle
   },
   data() {
     return {
@@ -59,32 +89,22 @@ export default {
     };
   },
   created() {
-    this.entity = this.mydatalist.find(entity => entity.pid === this.pid);
+    this.curentity = this.mydatalist.find(entity => entity.pid === this.pid);
+    this.entity = this.curentity;
   },
   computed: {
     titletxt() {
       if (this.title && 0 < this.title.length) {
-        console.log(this.title);
         return this.title;
       }
-      return this.$lang.view + ": " + this.entity.name;
+      return this.entity.name;
+    },
+    sections() {
+      // console.log(conf.sections);
+      return conf.sections;
     }
   },
   methods: {
-    fieldvalue(name) {
-      if ("undefined" === typeof this.entity[name]) {
-        return "";
-      }
-      return this.entity[name];
-    },
-    fieldsbygroup(gp) {
-      if (!gp) {
-        return conf.fields;
-      }
-      return conf.fields.filter(function(item) {
-        return item.gp === gp;
-      });
-    },
     onDelete() {
       var r = confirm(this.$lang.confirm_delete);
       if (r == true) {

@@ -1,4 +1,5 @@
 module.exports = {
+  action: "操作",
   del_ff: "刪除出貨對應訂單項目",
   description: "說明",
   subtotal: "小計",

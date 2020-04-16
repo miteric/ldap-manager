@@ -1,23 +1,61 @@
 <template>
   <div>
-    <h1>This is an view detail pid: {{ pid }}</h1>
+    <component :is="type" :labels="gpfields(sec)" :entity="entity"></component>
   </div>
 </template>
 <script>
+import WSimpleFragment from "@/components/fragment/WSimpleFragment";
+import conf from "@/conf/user_conf.js";
+
 export default {
-  components: {},
+  components: {
+    WSimpleFragment
+  },
   props: {
     pid: {
       type: String,
-      required: true
+      required: true,
+      validator: function(value) {
+        return value && 0 < value.length;
+      }
+    },
+    sec: {
+      type: String,
+      required: false,
+      default: "profile",
+      validator: function(value) {
+        return value && 0 < value.length;
+      }
+    },
+    type: {
+      type: String,
+      required: false,
+      default: "WSimpleFragment",
+      validator: function(value) {
+        // console.log(value);
+        return value && 0 < value.length;
+      }
     }
   },
-  computed: {
-    datalist() {
-      return [];
-      // return store.destinations.find(
-      //   destination => destination.slug === this.slug
-      // );
+  data() {
+    return {
+      entity: null
+    };
+  },
+  created() {
+    this.entity = this.mydatalist.find(entity => entity.pid === this.pid);
+    // console.log(this.entity);
+  },
+  computed: {},
+  methods: {
+    gpfields(gp) {
+      if (!gp) {
+        return conf.fields;
+      }
+      var list = conf.fields.filter(function(item) {
+        return item.gp === gp;
+      });
+      return list;
     }
   }
 };

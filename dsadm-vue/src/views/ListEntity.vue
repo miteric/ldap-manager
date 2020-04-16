@@ -5,7 +5,7 @@
       <span v-if="mytitle">{{ mytitle }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnCircle
-          :linkto="{ name: 'NewEntity' }"
+          :linkto="{ name: 'route.new' }"
           faicon="fa-plus"
           btnclass="btn-primary"
           v-if="newable"
@@ -15,6 +15,7 @@
     <WTable
       :datalist="mydatalist"
       :thfields="tablefields()"
+      :dodelete="onDelete"
       class="pl-3 pr-3"
     />
   </div>
@@ -32,8 +33,15 @@ export default {
   methods: {
     tablefields() {
       return conf.fields.filter(function(item) {
-        return item.tsort > 0;
+        return item.tbsort > 0;
       });
+    },
+    onDelete(idx) {
+      var r = confirm(this.$lang.confirm_delete);
+      if (r == true) {
+        console.log("I'm deleting " + idx);
+        this.mydatalist.splice(idx, 1);
+      }
     }
   }
 };
