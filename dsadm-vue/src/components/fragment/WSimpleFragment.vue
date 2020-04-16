@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     componentname(type) {
-      if (type === "txt") {
+      if (type === "text") {
         return "WStringView";
       }
       return "WStringView";

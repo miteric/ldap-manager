@@ -21,7 +21,7 @@ export default {
     },
     type: {
       type: String,
-      default: "txt"
+      default: "text"
     },
     loclass: {
       type: String,
@@ -45,7 +45,7 @@ export default {
       return this.label;
     },
     valueclass() {
-      if (this.type == "txtarea") {
+      if (this.type == "textarea") {
         return "white-space-pre " + this.valclass;
       }
       return this.valclass;

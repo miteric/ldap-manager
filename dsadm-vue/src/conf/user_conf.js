@@ -1,10 +1,10 @@
 export default {
   fields: [
-    { name: "name", gp: "profile", tbsort: 1, type: "txt" },
+    { name: "name", gp: "profile", tbsort: 1, type: "text" },
     { name: "spec", gp: "spec", tbsort: 2 },
     { name: "name", gp: "order", tbsort: 1 },
     { name: "description", gp: "order" },
-    { name: "description", gp: "customer", tbsort: 2, type: "txtarea" }
+    { name: "description", gp: "customer", tbsort: 2, type: "textarea" }
   ],
   sections: [
     { name: "profile", routename: "route.info", type: "WSimpleFragment" },
