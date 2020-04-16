@@ -23,7 +23,7 @@
       <WStringView
         v-for="(field, i) in fieldsbygroup('')"
         :key="i"
-        :labelkey="field.name"
+        :label="field.name"
         :value="fieldvalue(field.name)"
         loclass="mb-1"
       />

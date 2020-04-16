@@ -3,12 +3,7 @@ standard input-group */
 <template>
   <div :class="['input-group', loclass]">
     <div class="input-group-prepend">
-      <span :class="['input-group-text', lblclass]" v-if="labelkey">{{
-        $lang[labelkey]
-      }}</span>
-      <span :class="['input-group-text', lblclass]" v-else-if="label">{{
-        label
-      }}</span>
+      <span :class="['input-group-text', lblclass]">{{ labelstr }}</span>
     </div>
     <div :class="['form-control', valueclass]">{{ value }}</div>
   </div>
@@ -17,10 +12,6 @@ standard input-group */
 export default {
   props: {
     label: {
-      type: String,
-      required: false
-    },
-    labelkey: {
       type: String,
       required: false
     },
@@ -46,6 +37,13 @@ export default {
     }
   },
   computed: {
+    labelstr() {
+      let s = this.$lang[this.label];
+      if (s) {
+        return s;
+      }
+      return this.label;
+    },
     valueclass() {
       if (this.type == "txtarea") {
         return "white-space-pre " + this.valclass;

@@ -4,7 +4,7 @@
       v-for="(label, i) in labels"
       :key="i"
       :is="componentname(label.type)"
-      :labelkey="label.name"
+      :label="label.name"
       :value="entity[label.name]"
       :type="label.type"
       loclass="mb-1"
