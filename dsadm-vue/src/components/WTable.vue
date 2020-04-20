@@ -3,7 +3,7 @@
     <table class="table table-striped table-hover table-borderless">
       <thead :class="thclass">
         <tr>
-          <th v-for="(hfield, i) in thfields" :key="i" scope="col">
+          <th v-for="(hfield, i) in fieldefs" :key="i" scope="col">
             {{ $lang[hfield.name] }}
           </th>
           <th scope="col" v-if="showaction">&nbsp;</th>
@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr v-for="(current, k) in datalist" :key="k">
-          <td v-for="(tfield, j) in thfields" :key="j">
+          <td v-for="(tfield, j) in fieldefs" :key="j">
             <router-link
               :to="{ name: 'route.view', params: { pid: current.pid } }"
               v-if="j == 0"
@@ -75,7 +75,7 @@ export default {
       type: String,
       default: "th-simple"
     },
-    thfields: {
+    fieldefs: {
       required: true,
       default: () => []
     },

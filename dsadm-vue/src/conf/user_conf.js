@@ -1,15 +1,17 @@
+/* eslint-disable prettier/prettier */
 export default {
-  fields: [
-    { name: "name", gp: "profile", tbsort: 1, type: "text" },
-    { name: "spec", gp: "spec", tbsort: 2 },
-    { name: "name", gp: "order", tbsort: 1 },
-    { name: "description", gp: "order" },
-    { name: "description", gp: "customer", tbsort: 2, type: "textarea" }
+  fieldefs: [
+    { name: "name", gp: "profile", tbsort: 1, type: "text", validate: "required" },
+    { name: "account", gp: "profile", tbsort: 1, type: "text", validate: "required" },
+    { name: "country", tbsort: 1, gp: "profile", type: "select", candidates: window.MEApp.countries },
+    { name: "create_time", tbsort: 1, gp: "profile", type: "date", validate: "required" },
+    { name: "phone", gp: "contact_info", type: "text" },
+    { name: "birthday", gp: "contact_info", type: "date" },
+    { name: "address", gp: "contact_info", type: "textarea", rows:3 },
+    { name: "remark", gp: "contact_info", type: "textarea" }
   ],
   sections: [
     { name: "profile", routename: "route.info", type: "WSimpleFragment" },
-    { name: "spec", routename: "route.info", type: "WSimpleFragment" },
-    { name: "order", routename: "route.info", type: "WSimpleFragment" },
-    { name: "customer", routename: "route.info", type: "WSimpleFragment" }
+    { name: "contact_info", routename: "route.info", type: "WSimpleFragment" }
   ]
 };

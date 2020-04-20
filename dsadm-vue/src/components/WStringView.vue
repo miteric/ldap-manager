@@ -1,30 +1,29 @@
 /* General String Display, setting lblclass & valclass to "" will get bootstrap
 standard input-group */
 <template>
-  <div :class="['input-group', loclass]">
+  <div class="input-group">
     <div class="input-group-prepend">
       <span :class="['input-group-text', lblclass]">{{ labelstr }}</span>
     </div>
-    <div :class="['form-control', valueclass]">{{ value }}</div>
+    <div :class="['form-control', valueclass]">{{ myvalue }}</div>
   </div>
 </template>
 <script>
 export default {
   props: {
-    label: {
-      type: String,
-      required: false
+    fieldef: {
+      type: Object,
+      required: true,
+      default() {
+        return {
+          name: "",
+          type: "text"
+        };
+      }
     },
     value: {
       type: String,
-      required: true
-    },
-    type: {
-      type: String,
-      default: "text"
-    },
-    loclass: {
-      type: String,
+      required: true,
       default: ""
     },
     lblclass: {
@@ -37,15 +36,21 @@ export default {
     }
   },
   computed: {
+    myvalue() {
+      if ("undefined" === typeof this.value) {
+        return "";
+      }
+      return this.value;
+    },
     labelstr() {
-      let s = this.$lang[this.label];
+      let s = this.$lang[this.fieldef.name];
       if (s) {
         return s;
       }
-      return this.label;
+      return this.fieldef.name;
     },
     valueclass() {
-      if (this.type == "textarea") {
+      if (this.fieldef.type == "textarea") {
         return "white-space-pre " + this.valclass;
       }
       return this.valclass;
@@ -68,21 +73,5 @@ $gray-lighter: lighten(#000, 90%);
 }
 .border-trans {
   border-color: transparent;
-}
-
-@media (max-width: 767px) {
-  .input-group-prepend .input-group-text {
-    min-width: 80px !important;
-  }
-}
-@media (max-width: 1199px) {
-  .input-group-prepend .input-group-text {
-    min-width: 120px !important;
-  }
-}
-@media (min-width: 1200px) {
-  .input-group-prepend .input-group-text {
-    min-width: 200px !important;
-  }
 }
 </style>

@@ -1,13 +1,12 @@
 <template>
   <div class="pl-3 pr-3 pb-5">
     <component
-      v-for="(label, i) in labels"
+      v-for="(fieldef, i) in fieldefs"
       :key="i"
-      :is="componentname(label.type)"
-      :label="label.name"
-      :value="entity[label.name]"
-      :type="label.type"
-      loclass="mb-1"
+      :is="componentname(fieldef.type)"
+      :fieldef="fieldef"
+      :value="entity[fieldef.name]"
+      class="mb-1"
     />
   </div>
 </template>
@@ -16,7 +15,7 @@ import WStringView from "@/components/WStringView";
 
 export default {
   props: {
-    labels: {
+    fieldefs: {
       type: Array,
       default: () => []
     },

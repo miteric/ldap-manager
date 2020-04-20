@@ -29,7 +29,8 @@ export default {
 <style scoped lang="scss">
 $primary: #5593e4;
 #footer {
-  position: fixed;
+  // position: fixed;
+  margin-top: 30px;
   padding: 10px;
   left: 0%;
   bottom: 0%;

@@ -1,11 +1,13 @@
 <template>
-  <div id="app" class="container">
-    <MyNavibar />
-    <!-- <transition name="fade" mode="out-in"> -->
-    <router-view :key="$route.path" />
-    <!-- </transition> -->
-    <WFooter company="" />
-    <WMsgpan />
+  <div>
+    <div id="app" class="container">
+      <MyNavibar />
+      <!-- <transition name="fade" mode="out-in"> -->
+      <router-view :key="$route.path" />
+      <!-- </transition> -->
+      <WMsgpan />
+    </div>
+    <WFooter />
   </div>
 </template>
 <script>
@@ -16,7 +18,7 @@ import WMsgpan from "@/components/WMsgpan";
 export default {
   created: function() {
     // eslint-disable-next-line no-undef
-    this.$validator.setLocale(MEApp.locale);
+    this.$validator.localize(MEApp.locale);
     // eslint-disable-next-line no-undef
     this.$setLang(MEApp.locale);
   },
@@ -111,7 +113,6 @@ $gray-lighter: lighten(#000, 95%);
       padding: 0.3em 0;
     }
   }
-
 }
 .menu {
   border-right: 1px solid lighten($primary, 32%);
@@ -120,6 +121,25 @@ $gray-lighter: lighten(#000, 95%);
     border-bottom: 1px solid lighten($primary, 32%);
     border-right: 0px;
     margin-bottom: 15px;
+  }
+}
+.is-danger {
+  background-color: lighten($danger, 20%);
+  border-color: lighten($danger, 10%);
+}
+@media (max-width: 767px) {
+  .input-group-prepend .input-group-text {
+    min-width: 80px !important;
+  }
+}
+@media (max-width: 1199px) {
+  .input-group-prepend .input-group-text {
+    min-width: 120px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .input-group-prepend .input-group-text {
+    min-width: 200px !important;
   }
 }
 // transition effects

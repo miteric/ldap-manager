@@ -43,6 +43,7 @@
     <!-- built files will be auto injected -->
     <script>
       window.MEApp = window.MEApp || {};
+      window.MEApp.locale = "zh_TW";
       window.MEApp.title = "";
       window.MEApp.newable = true;
       window.MEApp.editable = true;
@@ -51,12 +52,24 @@
         { name: "Home", url: "/" },
         { name: "New User", url: "/new" }
       ];
-      window.MEApp.datalist = [
-        { pid: "SSS", name: "My name is SSS", description: "description of Item SSS", spec: "Spec of items" },
-        { pid: "SS1", name: "My name is SS1", description: "description of Item SS1", spec: "Spec of items" },
-        { pid: "SS2", name: "My name is SS2", description: "description of Item SS2", spec: "Spec of items" },
-        { pid: "SSB", name: "SSB", description: "desc of Item SSB" }
+      window.MEApp.countries = [
+        { name: "USA", value: "USA" },
+        { name: "Taiwan", value: "TW" },
+        { name: "China", value: "CH" }
       ];
+      window.MEApp.datalist = [
+        { pid: "SSS", name: "SSS", account:"eric", remark: "remark of SSS", create_time: "03/14/2020", birthday: "03/14/1966", country: "TW", phone: "0900888777", hobbies: ['soccer', 'hiking'] },
+        { pid: "AAA", name: "AAA", account:"eric", remark: "remark of SSS", create_time: "03/14/2020", birthday: "03/14/1966", country: "USA", phone: "0900888777", hobbies: ['soccer', 'hiking'] },
+        { pid: "SAS", name: "SAS", account:"eric", remark: "remark", create_time: "03/14/2020", birthday: "03/14/1966", country: "TW", phone: "0900888777", hobbies: ['soccer', 'hiking'] },
+        { pid: "SAA", name: "SAA", account:"eric", remark: "remark", create_time: "03/14/2020", birthday: "03/14/1966", country: "CH", phone: "0900888777", hobbies: ['soccer', 'hiking'] },
+        { pid: "OUY", name: "OUY", account:"OUY", remark: "remark of OUY", create_time: "03/14/2020", birthday: "03/14/1966", country: "TW", phone: "0900888777", hobbies: ['soccer', 'hiking'] },
+        { pid: "KKK", name: "KKK", account:"KKK", remark: "remark of SSS", create_time: "03/14/2020", birthday: "03/14/1966", country: "TW", phone: "0900888777", hobbies: ['soccer', 'hiking'] }
+      ];
+      window.MEApp.mycandidates = [
+            { name: 'name', value: 'R1' },
+            { name: 'R2', value: 'R2' },
+            { name: 'R3', value: 'R3' }
+          ];
     </script>
   </body>
 </html>

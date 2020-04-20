@@ -14,7 +14,7 @@
     </div>
     <WTable
       :datalist="mydatalist"
-      :thfields="tablefields()"
+      :fieldefs="tablefields()"
       :dodelete="onDelete"
       class="pl-3 pr-3"
     />
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     tablefields() {
-      return conf.fields.filter(function(item) {
+      return conf.fieldefs.filter(function(item) {
         return item.tbsort > 0;
       });
     },

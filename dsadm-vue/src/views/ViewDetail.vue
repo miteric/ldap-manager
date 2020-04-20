@@ -1,6 +1,10 @@
 <template>
   <div>
-    <component :is="type" :labels="gpfields(sec)" :entity="entity"></component>
+    <component
+      :is="type"
+      :fieldefs="gpfields(sec)"
+      :entity="entity"
+    ></component>
   </div>
 </template>
 <script>
@@ -50,9 +54,9 @@ export default {
   methods: {
     gpfields(gp) {
       if (!gp) {
-        return conf.fields;
+        return conf.fieldefs;
       }
-      var list = conf.fields.filter(function(item) {
+      var list = conf.fieldefs.filter(function(item) {
         return item.gp === gp;
       });
       return list;
