@@ -8,6 +8,7 @@ export default {
     { name: "phone", gp: "contact_info", type: "text" },
     { name: "birthday", gp: "contact_info", type: "date" },
     { name: "address", gp: "contact_info", type: "textarea", rows:3 },
+    { name: "hobbies", gp: "contact_info", type: "selections", candidates: window.MEApp.hobbielist },
     { name: "remark", gp: "contact_info", type: "textarea" }
   ],
   sections: [

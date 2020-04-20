@@ -67,6 +67,7 @@ export default {
   },
   created() {
     this.content = this.value;
+    // console.log(this.fieldef);
   },
   computed: {
     labelstr() {
