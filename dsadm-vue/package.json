@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "vee-validate": "^2.0.0",
     "vue": "^2.6.11",
+    "vue-flatpickr-component": "^3.0.0",
     "vue-lang": "^0.2.5",
     "vue-router": "^3.1.5"
   },

@@ -12,6 +12,14 @@ Vue.use(Lang, {
   locales: locales
 });
 
+import VeeValidate from "vee-validate";
+import zh_TW from "vee-validate/dist/locale/zh_TW";
+VeeValidate.Validator.localize("zh_TW", zh_TW);
+Vue.use(VeeValidate);
+
+import flatPickr from "vue-flatpickr-component";
+Vue.use(flatPickr);
+
 import AppAPI from "./mixins/api";
 Vue.mixin(AppAPI);
 

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div :class="['page-title', 'boxshadow', 'text-primary']">
+  <div class="app-container">
+    <div :class="['page-title', 'boxshadow']">
       <span>{{ titletxt }}</span>
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
         <WBtnBack />
@@ -12,19 +12,36 @@
         />
       </div>
     </div>
-
-    <h1>This is an edit page {{ entity.name }}</h1>
+    <div class="content-display">
+      <form class="row">
+        <component
+          v-for="(fieldef, i) in gpfields('')"
+          :is="componentname(fieldef.type)"
+          :key="i"
+          :fieldef="fieldef"
+          v-model="entity[fieldef.name]"
+          class="col-12"
+        />
+      </form>
+    </div>
   </div>
 </template>
 <script>
 import { eventBus } from "@/mixins/api";
 import WBtnBack from "@/components/WBtnBack";
 import WBtnCircle from "@/components/WBtnCircle";
+import WStringInput from "@/components/input/WStringInput";
+import WSingleSelect from "@/components/input/WSingleSelect";
+import WMultiSelects from "@/components/input/WMultiSelects";
+import conf from "@/conf/user_conf.js";
 
 export default {
   components: {
     WBtnBack,
-    WBtnCircle
+    WBtnCircle,
+    WStringInput,
+    WSingleSelect,
+    WMultiSelects
   },
   props: {
     pid: {
@@ -45,6 +62,7 @@ export default {
   },
   created() {
     this.entity = this.mydatalist.find(entity => entity.pid === this.pid);
+    // console.log(this.entity);
   },
   computed: {
     titletxt() {
@@ -56,8 +74,28 @@ export default {
     }
   },
   methods: {
+    componentname(type) {
+      // console.log(type);
+      if (type === "text" || type === "textarea") {
+        return "WStringInput";
+      } else if (type === "select" || type === "radio") {
+        return "WSingleSelect";
+      } else if (type === "selections") {
+        return "WMultiSelects";
+      }
+      return "WStringInput";
+    },
+    gpfields(gp) {
+      if (!gp || gp.length === 0) {
+        return conf.fieldefs;
+      }
+      return conf.fieldefs.filter(function(item) {
+        return item.gp === gp;
+      });
+    },
     onSubmit() {
       console.log("I'm submiting!");
+      console.log(this.entity);
       // return this.$router.go(-1);
       // this.$router.push({ name: "ViewEntity", params: { pid: this.pid } });
       let vm = this;
