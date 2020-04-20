@@ -12,6 +12,8 @@
           'form-control': true,
           'is-danger': errors.has(fieldef.name)
         }"
+        v-validate="fieldef.validate"
+        :data-vv-as="$lang[fieldef.name]"
         @input="handleInput"
         v-model="content"
       >
@@ -68,6 +70,7 @@
 </template>
 <script>
 export default {
+  inject: ["$validator"],
   props: {
     fieldef: {
       type: Object,
@@ -103,9 +106,9 @@ export default {
       return this.fieldef.name;
     },
     validaterr() {
-      //   if (this.errors.first(this.fieldef.name)) {
-      //     return this.errors.first(this.fieldef.name);
-      //   }
+      if (this.errors.first(this.fieldef.name)) {
+        return this.errors.first(this.fieldef.name);
+      }
       return String.fromCharCode(160);
     }
   },

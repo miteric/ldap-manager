@@ -43,6 +43,7 @@
 </template>
 <script>
 export default {
+  inject: ["$validator"],
   props: {
     fieldef: {
       type: Object,
@@ -78,9 +79,9 @@ export default {
       return this.fieldef.name;
     },
     validaterr() {
-      //   if (this.errors.first(this.fieldef.name)) {
-      //     return this.errors.first(this.fieldef.name);
-      //   }
+      if (this.errors.first(this.fieldef.name)) {
+        return this.errors.first(this.fieldef.name);
+      }
       return String.fromCharCode(160);
     }
   },

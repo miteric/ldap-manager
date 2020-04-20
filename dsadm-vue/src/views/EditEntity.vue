@@ -36,6 +36,7 @@ import WMultiSelects from "@/components/input/WMultiSelects";
 import conf from "@/conf/user_conf.js";
 
 export default {
+  inject: ["$validator"],
   components: {
     WBtnBack,
     WBtnCircle,
@@ -94,14 +95,21 @@ export default {
       });
     },
     onSubmit() {
-      console.log("I'm submiting!");
-      console.log(this.entity);
-      // return this.$router.go(-1);
-      // this.$router.push({ name: "ViewEntity", params: { pid: this.pid } });
-      let vm = this;
-      setTimeout(function() {
-        eventBus.$emit("showAppSuccess", vm.$lang.update_success);
-      }, 2500);
+      this.$validator
+        .validateAll()
+        .then(result => {
+          if (!result) {
+            // validation failed.
+            eventBus.$emit("showAppError", this.$lang.error_required);
+            return;
+          }
+          console.log(this.entity);
+          let vm = this;
+          setTimeout(function() {
+            eventBus.$emit("showAppSuccess", vm.$lang.update_success);
+          }, 2500);
+        })
+        .catch(() => {});
     }
   }
 };
