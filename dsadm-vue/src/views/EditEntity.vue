@@ -27,13 +27,13 @@
   </div>
 </template>
 <script>
-import { eventBus } from "@/mixins/api";
-import WBtnBack from "@/components/WBtnBack";
-import WBtnCircle from "@/components/WBtnCircle";
-import WStringInput from "@/components/input/WStringInput";
-import WSingleSelect from "@/components/input/WSingleSelect";
-import WMultiSelects from "@/components/input/WMultiSelects";
-import conf from "@/conf/user_conf.js";
+import { eventBus } from "../mixins/api";
+import WBtnBack from "../components/WBtnBack";
+import WBtnCircle from "../components/WBtnCircle";
+import WStringInput from "../components/input/WStringInput";
+import WSingleSelect from "../components/input/WSingleSelect";
+import WMultiSelects from "../components/input/WMultiSelects";
+import conf from "../conf/user_conf.js";
 
 export default {
   inject: ["$validator"],
